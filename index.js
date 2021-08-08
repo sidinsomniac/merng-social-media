@@ -1,36 +1,16 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
-const Post = require('./models/Post');
 const { MONGODB_URI } = require('./config');
 
+const typeDefs = require('./graphql/typeDefs');
+const resolvers = require('./graphql/resolvers');
 
-const typeDefs = gql`
-    type Post {
-        id: ID!
-        body: String!
-        username: String!
-        createdAt: String!
-    }
-    type Query {
-        fetchPosts: [Post]
-    }
-`;
-
-const resolvers = {
-    Query: {
-        fetchPosts: async () => {
-            try {
-                const posts = await Post.find({});
-                return posts;
-            } catch (err) {
-                throw new Error(err);
-            }
-        }
-    }
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: async ({ req }) => ({ req })
+});
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
     .then(() => {
