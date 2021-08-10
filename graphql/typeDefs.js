@@ -6,12 +6,19 @@ type Post {
     body: String!
     username: String!
     createdAt: String!
+    comments: [Comment]!
+    likes: [Like]!
 }
-input RegisterInput {
+type Comment {
+    body: String!
+    id: ID!
+    createdAt: String!
     username: String!
-    password: String!
-    confirmPassword: String!
-    email: String!
+}
+type Like {
+    id: ID!
+    createdAt: String!
+    username: String!
 }
 type User {
     id: ID!
@@ -24,10 +31,19 @@ type Query {
     fetchPosts: [Post]
     fetchPost(postId: ID!): Post
 }
+input RegisterInput {
+    username: String!
+    password: String!
+    confirmPassword: String!
+    email: String!
+}
 type Mutation {
     register(registerInput: RegisterInput): User!
     login( username: String!, password: String!): User!
     createPost(body: String!): Post!
     deletePost(postId: ID!): String!
+    createComment(postId: ID!, body: String!): Post!
+    deleteComment(postId: ID!, commentId: ID!): Post!
+    likePost(postId: ID!): Post!
 }
 `;
