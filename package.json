@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "graphql": "^15.5.1",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "mongoose": "^5.13.5",
     "react-router-dom": "^5.2.1",
     "semantic-ui-css": "^2.4.1",
