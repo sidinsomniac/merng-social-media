@@ -8,3 +8,8 @@
 .page-content {
   margin-bottom: 20px;
 }
+
+.form-container {
+  width: 400px;
+  margin: auto;
+}
