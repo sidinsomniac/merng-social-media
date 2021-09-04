@@ -1,0 +1,10 @@
+.page-title {
+  display: block !important;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2rem;
+}
+
+.page-content {
+  margin-bottom: 20px;
+}
