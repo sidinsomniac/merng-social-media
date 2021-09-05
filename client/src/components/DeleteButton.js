@@ -19,7 +19,6 @@ function DeleteButton({ postId, commentId, callback }) {
                     query: FETCH_POSTS_QUERY
                 });
                 const fetchPosts = data.fetchPosts.filter((p) => p.id !== postId);
-
                 store.writeQuery({
                     query: FETCH_POSTS_QUERY,
                     data: {
