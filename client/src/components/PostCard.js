@@ -1,11 +1,23 @@
 import moment from "moment";
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { Card, Image, Button, Icon, Label } from 'semantic-ui-react';
 
-function PostCard({ post: { id, body, createdAt, username, likeCount, commentCount, comments } }) {
+import { AuthContext } from "../context/auth";
+import LikeButton from "./LikeButton";
+
+import "../App.css";
+
+function PostCard({ post: { id, body, createdAt, username, likeCount, commentCount, comments, likes } }) {
+
+    const { user } = useContext(AuthContext);
+
+    const removePost = () => {
+        console.log('Removed');
+    };
+
     return (
-        <Card fluid>
+        <Card fluid className="post-card">
             <Card.Content>
                 <Image
                     floated='right'
@@ -19,22 +31,20 @@ function PostCard({ post: { id, body, createdAt, username, likeCount, commentCou
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <Button as='div' labelPosition='right'>
-                    <Button color='purple' basic>
-                        <Icon name='heart' />
-                    </Button>
-                    <Label as='a' basic color='purple' pointing='left'>
-                        {likeCount}
-                    </Label>
-                </Button>
-                <Button as='div' labelPosition='right'>
+                <LikeButton user={user} post={{ id, likes, likeCount }} />
+                <Button as={Link} to={`/posts/${id}`} labelPosition='right'>
                     <Button color='olive' basic>
                         <Icon name='comments' />
                     </Button>
-                    <Label as='a' basic color='olive' pointing='left'>
+                    <Label basic color='olive' pointing='left'>
                         {commentCount}
                     </Label>
                 </Button>
+                {user && user.username === username && (
+                    <Button as="div" color='red' floated="right" basic onClick={removePost}>
+                        <Icon style={{ margin: 0 }} name='trash' />
+                    </Button>
+                )}
             </Card.Content>
         </Card>
     );
