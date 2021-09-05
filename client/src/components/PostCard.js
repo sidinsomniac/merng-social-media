@@ -7,14 +7,11 @@ import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 
 import "../App.css";
+import DeleteButton from "./DeleteButton";
 
 function PostCard({ post: { id, body, createdAt, username, likeCount, commentCount, comments, likes } }) {
 
     const { user } = useContext(AuthContext);
-
-    const removePost = () => {
-        console.log('Removed');
-    };
 
     return (
         <Card fluid className="post-card">
@@ -41,9 +38,10 @@ function PostCard({ post: { id, body, createdAt, username, likeCount, commentCou
                     </Label>
                 </Button>
                 {user && user.username === username && (
-                    <Button as="div" color='red' floated="right" basic onClick={removePost}>
-                        <Icon style={{ margin: 0 }} name='trash' />
-                    </Button>
+                    // <Button as="div" color='red' floated="right" basic onClick={removePost}>
+                    //     <Icon style={{ margin: 0 }} name='trash' />
+                    // </Button>
+                    <DeleteButton postId={id} />
                 )}
             </Card.Content>
         </Card>
